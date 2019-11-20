@@ -1,0 +1,110 @@
+一、vue-router有哪几种导航钩子？
+全局守卫：beforeEach,beforeResolve,afterEach
+
+beforeEach((to,from,next)={
+	if(to.path == '/login'){
+		next();	
+	}
+	else{
+		next({name:'login'})
+	}
+	
+})
+路由独享守卫
+{
+	path : '/limit',
+	name : 'limit',
+	component : limit
+	beforeEnter : (to,from,next){
+		next();
+	}
+}
+
+组件级别守卫
+
+beforeRouteEnter:里面不能使用this，也就是无法使用当前vue实例
+beforeRouteUpdate
+beforeRouteLeave
+
+二、怎么定义vue-router的动态路由，如果获取动态路由参数？
+<router-link to="/limit/:sid"></router-link>
+或
+<router-link :to="{path:'/limit/:sid'}"></router-link>
+this.$route.params获取
+
+三、请描述vue-cli脚手架创建的项目目录结构，并说明
+
+四、axios是什么，怎么使用
+
+axios是一个基于promise的http库，它支持node和浏览器端运行，且支持拦截器。
+使用形式上有两种：
+
+1)给Vue.prototype扩展一个axios属性,做法如下：
+	Vue.prototype.axios = axios
+2)使用vue-axios插件来用
+
+	Vue.use(vueAxios,axios);
+	Vue.axios({
+		//config配置
+	})
+	Vue.axios.get(url,config配置）
+	Vue.axios.post(url,[data],config配置)
+
+五、如何解决跨域问题
+
+在vue中可以配置webpack代理，可以使用第三方代理服务器，服务器支持jsonp，前端使用jsonp请求，服务器配置header支持access-control-allow-origin
+
+六、axios提交get和post数据的方式
+
+GET:
+	axios.get(url,{
+		params : {key:'XXX'}
+	})
+
+POST:
+	axios.post(url,{
+		data: qs.stringify({key:'XXX'})
+	})
+
+七、vuex是什么，怎么使用，使用场景？
+
+vuex是一种集中式状态管理模式，它按照一定的规则管理状态，保证状态的变化是可预测的。
+
+state：定义初始化状态
+getters：获取状态
+mutations:设置状态
+actions：异步提交mutations
+modules：把状态管理模块化，各自的组件构成各自的模块
+
+new Vuex.Store({
+  state: {},
+  mutations: {},
+  actions: {},
+  modules: {}
+})
+
+组件状态共享，兄弟节点传值
+
+八、如何让css只在当前组件起作用
+
+增加scoped
+<style lang="less" scoped></style>
+
+九、mint-ui是什么，怎么用？列举三个组件
+
+mint-ui是一个基于vue的移动端组件框架
+
+import mintUI from 'mint-ui'
+import 'mint-ui/lib/index.css'
+
+Vue.use(mintUI)
+
+十五、什么是vue的计算属性
+vue中使用computed定义计算属性，计算属性一般要依赖data属性，data属性变化后computed自动求值，否则会产生缓存
+
+十六、computed和methods的区别
+
+前者有缓存，后者没有缓存；使用的时候计算属性是属性形式，方法是函数形式
+
+
+http://www.react-china.org/
